@@ -16,7 +16,8 @@ syntax on
 let g:solarized_termcolors=256
 set background=dark
 colorscheme solarized
-"autocmd ColorScheme * highlight clear SignColumn
+highlight clear SignColumn
+autocmd ColorScheme * highlight clear SignColumn
 
 " Showing line numbers and length
 set number  " show line numbers
@@ -212,6 +213,9 @@ let g:syntastic_javascript_checkers = ['jshint']
 
 " vim-jedi
 let g:jedi#related_names_command = "<leader>rn"
+let g:jedi#usages_command = "<leader>u"
+let g:jedi#rename_command = "<leader>r"
+
 
 " Better navigating through omnicomplete option list
 " See http://stackoverflow.com/questions/2170023/how-to-map-keys-for-popup-menu-in-vim
