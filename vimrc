@@ -1,6 +1,5 @@
 set encoding=utf-8
 
-
 " Enable syntax highlighting
 filetype off
 
@@ -13,11 +12,16 @@ filetype plugin indent on
 syntax on
 
 " theme
-let g:solarized_termcolors=256
+set t_Co=256
+"set term=xterm-256color
+"let g:solarized_termcolors=256
 set background=dark
 colorscheme solarized
+"colorscheme default
 highlight clear SignColumn
 autocmd ColorScheme * highlight clear SignColumn
+
+set cursorline
 
 " Showing line numbers and length
 set number  " show line numbers
@@ -29,8 +33,9 @@ highlight ColorColumn ctermbg=233
 "au InsertEnter * hi Cursor guibg=DeepSkyBlue4
 
 " gvim customizations
-:set guioptions-=m  "remove menu bar
-:set guioptions-=T  "remove toolbar
+set guioptions-=m  "remove menu bar
+set guioptions-=T  "remove toolbar
+set guioptions-=r
 set guifont="DejaVu Sans Mono Bolt 10"
 
 
@@ -42,6 +47,8 @@ set guifont="DejaVu Sans Mono Bolt 10"
 " Show whitespace
 "autocmd ColorScheme * highlight ExtraWhitespace ctermbg=red guibg=red
 "au InsertLeave * match ExtraWhitespace /\s\+$/
+
+cmap w!! %!sudo tee > /dev/null %
 
 
 " =============================================================================
@@ -58,6 +65,11 @@ set clipboard=unnamed
 " Mouse and backspace
 set mouse=a  " on OSX press ALT and click
 set bs=2     " make backspace behave like normal again
+
+
+"set backupdir=~/.vim-tmp,~/.tmp,~/tmp,/var/tmp,/tmp
+"set directory=~/.vim-tmp,~/.tmp,~/tmp,/var/tmp,/tmp
+
 "==============================================================================
 
 
@@ -111,10 +123,9 @@ set history=1000
 set undolevels=1000
 
 
-" Real programmers don't use TABs but spaces
-set tabstop=2
-set shiftwidth=2
+set tabstop=4
 set softtabstop=4
+set shiftwidth=4
 set shiftround
 set expandtab
 
@@ -164,11 +175,18 @@ nmap t o<ESC>k
 nmap T O<ESC>j
 
 
+"This allows for change paste motion cp{motion}
+nmap <silent> cp :set opfunc=ChangePaste<CR>g@
+function! ChangePaste(type, ...)
+    silent exe "normal! `[v`]\"_c"
+    silent exe "normal! p"
+endfunction
+
 " =============================================================================
 " Python IDE Setup
 " =============================================================================
-set listchars=tab:»\ ,eol:¬
-
+set listchars=tab:▸\ ,eol:¬,trail:⋅,extends:❯,precedes:❮
+set showbreak=↪
 
 " Ack
 nmap <leader>a <Esc>:Ack!
@@ -215,6 +233,7 @@ let g:syntastic_javascript_checkers = ['jshint']
 let g:jedi#related_names_command = "<leader>rn"
 let g:jedi#usages_command = "<leader>u"
 let g:jedi#rename_command = "<leader>r"
+let g:jedi#popup_select_first = 0
 
 
 " Better navigating through omnicomplete option list
