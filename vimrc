@@ -118,16 +118,19 @@ vnoremap > >gv  " better indentation
 "" nmap Q gqap
 
 
-" Useful settings
 set history=1000
 set undolevels=1000
 
 
+" nice list
+set listchars=tab:▸\ ,eol:¬,trail:⋅,extends:❯,precedes:❮
+set showbreak=↪
+
 set tabstop=4
-set softtabstop=4
-set shiftwidth=4
-set shiftround
-set expandtab
+"set softtabstop=4
+"set shiftwidth=4
+"set shiftround
+"set expandtab
 
 
 " Make search case insensitive
@@ -185,8 +188,13 @@ endfunction
 " =============================================================================
 " Python IDE Setup
 " =============================================================================
-set listchars=tab:▸\ ,eol:¬,trail:⋅,extends:❯,precedes:❮
-set showbreak=↪
+" python mode
+let g:pymode_virtualenv = 1
+let g:pymode_breakpoint = 1
+let g:pymode_breakpoint_bind = '<leader>b'
+let g:pymode_folding = 0
+let g:pymode_rope = 0 " for jedi
+let g:pymode_lint_cwindow = 0
 
 " Ack
 nmap <leader>a <Esc>:Ack!
@@ -252,7 +260,6 @@ endfunction
 
 inoremap <silent><C-j> <C-R>=OmniPopup('j')<CR>
 inoremap <silent><C-k> <C-R>=OmniPopup('k')<CR>
-map <Leader>b Oimport ipdb; ipdb.set_trace() # BREAKPOINT<C-c>
 
 
 " airline
