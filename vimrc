@@ -1,31 +1,33 @@
 set encoding=utf-8
 set nocompatible
-filetype off
 
+filetype off
 
 set rtp+=~/.vim/bundle/vundle/
 call vundle#rc()
 
-Bundle 'gmarik/vundle'
-Bundle 'tpope/vim-fugitive'
-Bundle 'tpope/vim-surround'
-Bundle 'tpope/vim-repeat'
-Bundle 'Lokaltog/vim-easymotion'
-Bundle 'kien/ctrlp.vim'
+Bundle 'airblade/vim-gitgutter'
 Bundle 'altercation/vim-colors-solarized'
 Bundle 'bling/vim-airline'
-Bundle 'nvie/vim-flake8'
-Bundle 'scrooloose/nerdtree'
-Bundle 'scrooloose/nerdcommenter'
-Bundle 'airblade/vim-gitgutter'
-Bundle 'mileszs/ack.vim'
-Bundle 'majutsushi/tagbar'
-Bundle 'tomtom/tlib_vim'
-Bundle 'MarcWeber/vim-addon-mw-utils'
-Bundle 'garbas/vim-snipmate'
-Bundle 'honza/vim-snippets'
+Bundle 'davidhalter/jedi-vim'
 Bundle 'ervandew/supertab'
+Bundle 'garbas/vim-snipmate'
+Bundle 'gmarik/vundle'
+Bundle 'honza/vim-snippets'
+Bundle 'kien/ctrlp.vim'
 Bundle 'klen/python-mode'
+"Bundle 'Lokaltog/vim-easymotion'
+Bundle 'majutsushi/tagbar'
+Bundle 'MarcWeber/vim-addon-mw-utils'
+Bundle 'mileszs/ack.vim'
+Bundle 'scrooloose/nerdcommenter'
+Bundle 'scrooloose/nerdtree'
+Bundle 'scrooloose/syntastic'
+Bundle 'sjl/gundo.vim'
+Bundle 'tomtom/tlib_vim'
+Bundle 'tpope/vim-fugitive'
+Bundle 'tpope/vim-repeat'
+Bundle 'tpope/vim-surround'
 
 filetype plugin indent on
 syntax on
@@ -36,7 +38,6 @@ set t_Co=256
 "let g:solarized_termcolors=256
 set background=dark
 colorscheme solarized
-"colorscheme default
 highlight clear SignColumn
 autocmd ColorScheme * highlight clear SignColumn
 
@@ -48,8 +49,6 @@ set tw=79   " width of document (used by gd)
 set nowrap  " don't automatically wrap on load
 set fo-=t   " don't automatically wrap text when typing
 set colorcolumn=80
-highlight ColorColumn ctermbg=233
-"au InsertEnter * hi Cursor guibg=DeepSkyBlue4
 
 " gvim customizations
 set guioptions-=m  "remove menu bar
@@ -57,18 +56,11 @@ set guioptions-=T  "remove toolbar
 set guioptions-=r
 set guifont=Ubuntu\ Mono\ 12
 
-
 " Automatic reloading of .vimrc
 "" autocmd! bufwritepost .vimrc source %
-"au BufWritePost .vimrc so ~/.vimrc
-
-
-" Show whitespace
-"autocmd ColorScheme * highlight ExtraWhitespace ctermbg=red guibg=red
-"au InsertLeave * match ExtraWhitespace /\s\+$/
+au BufWritePost .vimrc so ~/.vimrc
 
 cmap w!! %!sudo tee > /dev/null %
-
 
 " =============================================================================
 " uncertainces
@@ -80,22 +72,17 @@ cmap w!! %!sudo tee > /dev/null %
 set pastetoggle=<F2>
 set clipboard=unnamed
 
-
 " Mouse and backspace
 set mouse=a  " on OSX press ALT and click
 set bs=2     " make backspace behave like normal again
 
-
 "set backupdir=~/.vim-tmp,~/.tmp,~/tmp,/var/tmp,/tmp
 "set directory=~/.vim-tmp,~/.tmp,~/tmp,/var/tmp,/tmp
-
 "==============================================================================
-
 
 " Esc by press jk or kj
 inoremap jk <Esc>
 inoremap kj <Esc>
-
 
 let mapleader = ","
 
@@ -115,14 +102,6 @@ inoremap <C-n> :nohl<CR>
 " Quick quit command
 noremap <Leader>e :quit<CR>  " Quit current window
 noremap <Leader>E :qa!<CR>   " Quit all windows
-
-
-" bind Ctrl+<movement> keys to move around the windows, instead of using Ctrl+w + <movement>
-" Every unnecessary keystroke that can be saved is good for your health :)
-map <c-j> <c-w>j
-map <c-k> <c-w>k
-map <c-l> <c-w>l
-map <c-h> <c-w>h
 
 
 " easier moving of code blocks
@@ -167,15 +146,17 @@ set noswapfile
 
 
 " zakomentovane delalo z nejakeho duvodu binec
-:nmap <C-S-tab> :tabprevious<cr>
-:nmap <C-tab> :tabnext<cr>
+:map <C-j> :tabprevious<cr>
+:map <C-k> :tabnext<cr>
+":nmap <C-S-tab> :tabprevious<cr>
+":nmap <C-tab> :tabnext<cr>
 ":nmap <C-t> :tabnew<cr>
 ":map <C-t> :tabnew<cr>
-:map <C-S-tab> :tabprevious<cr>
-:map <C-tab> :tabnext<cr>
+":map <C-S-tab> :tabprevious<cr>
+":map <C-tab> :tabnext<cr>
 ":map <C-w> :tabclose<cr>
-:imap <C-S-tab> <ESC>:tabprevious<cr>i
-:imap <C-tab> <ESC>:tabnext<cr>i
+":imap <C-S-tab> <ESC>:tabprevious<cr>i
+":imap <C-tab> <ESC>:tabnext<cr>i
 ":imap <C-t> <ESC>:tabnew<cr>
 
 
@@ -210,25 +191,21 @@ let g:pymode_lint_cwindow = 0
 let g:pymode_lint_write = 0
 let g:pymode_lint = 0
 
+
 " Ack
 nmap <leader>a <Esc>:Ack!
 
 
-" Settings for ctrlp
-" cd ~/.vim/bundle
-" git clone https://github.com/kien/ctrlp.vim.git
+" gundo
+nnoremap <C-h> :GundoToggle<CR>
+
+
+" ctrlp
 let g:ctrlp_max_height = 30
 set wildignore+=*.pyc
 set wildignore+=*_build/*
 set wildignore+=*/coverage/*
-
 map <leader>t :CtrlPBufTag<CR>
-
-
-" ### tohle ted nevim k cemu je
-let g:html_indent_inctags = "html,body,head,tbody"
-let g:html_indent_script1 = "inc"
-let g:html_indent_style1 = "inc"
 
 
 " tagbar
@@ -242,7 +219,6 @@ let NERDTreeIgnore=['\.pyc$']
 
 
 " vim-flake8 -- depends on flake8!
-" pip install flake8
 "autocmd BufWritePost *.py call Flake8()
 
 
@@ -256,7 +232,7 @@ let g:jedi#usages_command = "<leader>u"
 let g:jedi#rename_command = "<leader>r"
 let g:jedi#popup_select_first = 0
 let g:jedi#use_tabs_not_buffers = 0
-" let g:jedi#auto_initialization = 0  " pokud bude stale blbnout historie...
+let g:jedi#show_call_signatures = 0  " buggy with history
 
 
 " Better navigating through omnicomplete option list
@@ -297,50 +273,9 @@ let g:airline_mode_map = {
 \ }
 
 
-" python syntax
-let python_highlight_all = 1
-
-
-" ### neinstaloval jsem
-" indent
-" cd ~/.vim/bundle
-" git clone git://github.com/nathanaelkane/vim-indent-guides.git
-let g:indent_guides_start_level = 2
-let g:indent_guides_guide_size = 1
-
-
-" gundo
-" git clone http://github.com/sjl/gundo.vim.git ~/.vim/bundle/gundo
-nnoremap <F5> :GundoToggle<CR>
-
-
-" vim-surround
-
-
-" vim repeat
-
-
-" vim-virtualenv
-
-
-" quicktask
-" git clone https://github.com/aaronbieber/quicktask.git bundles/quicktask
-
-
 " =============================================================================
-" ### proveřit
-" snippets
-" cd ~/.vim/bundle
-" git clone https://github.com/tomtom/tlib_vim.git
-" git clone https://github.com/MarcWeber/vim-addon-mw-utils.git
-" git clone https://github.com/garbas/vim-snipmate.git
-" git clone https://github.com/honza/vim-snippets.git
-"
+" utils
 " =============================================================================
-" cd ~/.vim/bundle
-" git clone git://github.com/tpope/vim-sleuth.git
-
-
 " Return indent (all whitespace at start of a line), converted from
 " tabs to spaces if what = 1, or from spaces to tabs otherwise.
 " When converting to tabs, result has no redundant spaces.
@@ -372,7 +307,7 @@ command! -nargs=? -range=% RetabIndent call IndentConvert(<line1>,<line2>,&et,<q
 
 
 " function for move tabs
-function ShiftTab(direction)
+function! ShiftTab(direction)
      let tab_number = tabpagenr()
      if a:direction == 0
          if tab_number == 1
@@ -393,6 +328,7 @@ endfunction
 "inoremap <silent> <C-S-Left>  <C-r>=ShiftTab(0)<CR>
 "inoremap <silent> <C-S-Right>  <C-r>=ShiftTab(1)<CR>
 
+" shifting tabs
 noremap <silent> <C-S-Left>  :call ShiftTab(0)<CR>
 noremap <silent> <C-S-Right> :call ShiftTab(1)<CR>
 "==============================================================================
