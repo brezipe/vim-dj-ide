@@ -1,12 +1,31 @@
 set encoding=utf-8
-
-" Enable syntax highlighting
+set nocompatible
 filetype off
 
 
-" Setup Pathogen
-call pathogen#infect()
-call pathogen#helptags()
+set rtp+=~/.vim/bundle/vundle/
+call vundle#rc()
+
+Bundle 'gmarik/vundle'
+Bundle 'tpope/vim-fugitive'
+Bundle 'tpope/vim-surround'
+Bundle 'tpope/vim-repeat'
+Bundle 'Lokaltog/vim-easymotion'
+Bundle 'kien/ctrlp.vim'
+Bundle 'altercation/vim-colors-solarized'
+Bundle 'bling/vim-airline'
+Bundle 'nvie/vim-flake8'
+Bundle 'scrooloose/nerdtree'
+Bundle 'scrooloose/nerdcommenter'
+Bundle 'airblade/vim-gitgutter'
+Bundle 'mileszs/ack.vim'
+Bundle 'majutsushi/tagbar'
+Bundle 'tomtom/tlib_vim'
+Bundle 'MarcWeber/vim-addon-mw-utils'
+Bundle 'garbas/vim-snipmate'
+Bundle 'honza/vim-snippets'
+Bundle 'ervandew/supertab'
+Bundle 'klen/python-mode'
 
 filetype plugin indent on
 syntax on
@@ -36,7 +55,7 @@ highlight ColorColumn ctermbg=233
 set guioptions-=m  "remove menu bar
 set guioptions-=T  "remove toolbar
 set guioptions-=r
-set guifont="DejaVu Sans Mono Bolt 10"
+set guifont=Ubuntu\ Mono\ 12
 
 
 " Automatic reloading of .vimrc
@@ -127,8 +146,8 @@ set listchars=tab:▸\ ,eol:¬,trail:⋅,extends:❯,precedes:❮
 set showbreak=↪
 
 set tabstop=4
+set shiftwidth=4
 "set softtabstop=4
-"set shiftwidth=4
 "set shiftround
 "set expandtab
 
@@ -178,13 +197,6 @@ nmap t o<ESC>k
 nmap T O<ESC>j
 
 
-"This allows for change paste motion cp{motion}
-nmap <silent> cp :set opfunc=ChangePaste<CR>g@
-function! ChangePaste(type, ...)
-    silent exe "normal! `[v`]\"_c"
-    silent exe "normal! p"
-endfunction
-
 " =============================================================================
 " Python IDE Setup
 " =============================================================================
@@ -195,6 +207,8 @@ let g:pymode_breakpoint_bind = '<leader>b'
 let g:pymode_folding = 0
 let g:pymode_rope = 0 " for jedi
 let g:pymode_lint_cwindow = 0
+let g:pymode_lint_write = 0
+let g:pymode_lint = 0
 
 " Ack
 nmap <leader>a <Esc>:Ack!
@@ -238,10 +252,11 @@ let g:syntastic_javascript_checkers = ['jshint']
 
 
 " vim-jedi
-let g:jedi#related_names_command = "<leader>rn"
 let g:jedi#usages_command = "<leader>u"
 let g:jedi#rename_command = "<leader>r"
 let g:jedi#popup_select_first = 0
+let g:jedi#use_tabs_not_buffers = 0
+" let g:jedi#auto_initialization = 0  " pokud bude stale blbnout historie...
 
 
 " Better navigating through omnicomplete option list
