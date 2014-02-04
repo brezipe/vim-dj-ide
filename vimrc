@@ -141,9 +141,8 @@ set nowritebackup
 set noswapfile
 
 
-" zakomentovane delalo z nejakeho duvodu binec
-:map <C-j> :tabprevious<cr>
-:map <C-k> :tabnext<cr>
+:nmap <c-h> :tabprevious<cr>
+:nmap <c-l> :tabnext<cr>
 ":nmap <C-S-tab> :tabprevious<cr>
 ":nmap <C-tab> :tabnext<cr>
 ":nmap <C-t> :tabnew<cr>
@@ -193,7 +192,7 @@ nmap <leader>a <Esc>:Ack!
 
 
 " gundo
-nnoremap <C-h> :GundoToggle<CR>
+nnoremap <leader>h :GundoToggle<CR>
 
 
 " ctrlp
@@ -229,24 +228,7 @@ let g:jedi#rename_command = "<leader>r"
 let g:jedi#popup_select_first = 0
 let g:jedi#use_tabs_not_buffers = 0
 let g:jedi#show_call_signatures = 0  " buggy with history
-
-
-" Better navigating through omnicomplete option list
-" See http://stackoverflow.com/questions/2170023/how-to-map-keys-for-popup-menu-in-vim
-"set completeopt=longest,menuone
-function! OmniPopup(action)
-    if pumvisible()
-        if a:action == 'j'
-            return "\<C-N>"
-        elseif a:action == 'k'
-            return "\<C-P>"
-        endif
-    endif
-    return a:action
-endfunction
-
-inoremap <silent><C-j> <C-R>=OmniPopup('j')<CR>
-inoremap <silent><C-k> <C-R>=OmniPopup('k')<CR>
+map <leader>p :Pyimport 
 
 
 " airline
@@ -267,6 +249,30 @@ let g:airline_mode_map = {
 \ 'S' : 'S-L',
 \ '' : 'S-B',
 \ }
+
+"
+" UltiSnips
+let g:UltiSnipsRemoveSelectModeMappings = 1
+let g:UltiSnipsJumpForwardTrigger="<tab>"
+let g:UltiSnipsJumpBackwardTrigger="<s-tab>"
+
+
+" Better navigating through omnicomplete option list
+" See http://stackoverflow.com/questions/2170023/how-to-map-keys-for-popup-menu-in-vim
+"set completeopt=longest,menuone
+function! OmniPopup(action)
+    if pumvisible()
+        if a:action == 'j'
+            return "\<C-N>"
+        elseif a:action == 'k'
+            return "\<C-P>"
+        endif
+    endif
+    return a:action
+endfunction
+
+imap <silent><C-j> <C-R>=OmniPopup('j')<CR>
+imap <silent><C-k> <C-R>=OmniPopup('k')<CR>
 
 
 " =============================================================================
