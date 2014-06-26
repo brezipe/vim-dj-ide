@@ -6,6 +6,7 @@ filetype off
 set rtp+=~/.vim/bundle/vundle/
 call vundle#rc()
 
+
 Bundle 'airblade/vim-gitgutter'
 Bundle 'altercation/vim-colors-solarized'
 Bundle 'bling/vim-airline'
@@ -14,12 +15,16 @@ Bundle 'gmarik/vundle'
 Bundle 'kien/ctrlp.vim'
 Bundle 'klen/python-mode'
 Bundle 'Lokaltog/vim-easymotion'
+" require: sudo apt-get install xdotool
+Bundle 'lordm/vim-browser-reload-linux'  
 Bundle 'majutsushi/tagbar'
+Bundle "mattn/emmet-vim"
 Bundle 'mileszs/ack.vim'
 Bundle 'scrooloose/nerdcommenter'
 Bundle 'scrooloose/nerdtree'
 Bundle 'scrooloose/syntastic'
 Bundle 'SirVer/ultisnips'
+Bundle 'honza/vim-snippets'
 Bundle 'sjl/gundo.vim'
 Bundle 'tpope/vim-fugitive'
 Bundle 'tpope/vim-repeat'
@@ -180,11 +185,23 @@ nmap T O<ESC>j
 let g:pymode_virtualenv = 1
 let g:pymode_breakpoint = 1
 let g:pymode_breakpoint_bind = '<leader>b'
+let g:pymode_breakpoint_cmd = 'ipdb'
 let g:pymode_folding = 0
-let g:pymode_rope = 0 " for jedi
+
+" disable ropes autocomplete for jedi
+let g:pymode_rope_complete_on_dot = 0
+let g:pymode_rope_completion = 0
+
 let g:pymode_lint_cwindow = 0
 let g:pymode_lint_write = 0
 let g:pymode_lint = 0
+
+" vim-jedi
+let g:jedi#popup_select_first = 0
+let g:jedi#use_tabs_not_buffers = 0
+let g:jedi#show_call_signatures = 0  " buggy with history
+map <leader>p :Pyimport 
+let g:jedi#usages_command="<leader>u"
 
 
 " Ack
@@ -218,17 +235,8 @@ let NERDTreeIgnore=['\.pyc$']
 
 
 " syntastic
-let g:syntastic_python_checkers=['flake8']
+"let g:syntastic_python_checkers=['flake8']
 let g:syntastic_javascript_checkers = ['jshint']
-
-
-" vim-jedi
-let g:jedi#usages_command = "<leader>u"
-let g:jedi#rename_command = "<leader>r"
-let g:jedi#popup_select_first = 0
-let g:jedi#use_tabs_not_buffers = 0
-let g:jedi#show_call_signatures = 0  " buggy with history
-map <leader>p :Pyimport 
 
 
 " airline
