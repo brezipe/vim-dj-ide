@@ -10,21 +10,24 @@ call vundle#rc()
 Bundle 'airblade/vim-gitgutter'
 Bundle 'altercation/vim-colors-solarized'
 Bundle 'bling/vim-airline'
+Bundle 'Crapworks/python_fn.vim'
 Bundle 'davidhalter/jedi-vim'
 Bundle 'gmarik/vundle'
+Bundle 'honza/vim-snippets'
 Bundle 'kien/ctrlp.vim'
 Bundle 'klen/python-mode'
 Bundle 'Lokaltog/vim-easymotion'
 " require: sudo apt-get install xdotool
 Bundle 'lordm/vim-browser-reload-linux'  
+" require: sudo apt-get install exuberant-ctags
 Bundle 'majutsushi/tagbar'
 Bundle "mattn/emmet-vim"
+" require: sudo apt-get install ack-grep
 Bundle 'mileszs/ack.vim'
 Bundle 'scrooloose/nerdcommenter'
 Bundle 'scrooloose/nerdtree'
 Bundle 'scrooloose/syntastic'
 Bundle 'SirVer/ultisnips'
-Bundle 'honza/vim-snippets'
 Bundle 'sjl/gundo.vim'
 Bundle 'tpope/vim-fugitive'
 Bundle 'tpope/vim-repeat'
@@ -130,6 +133,7 @@ set shiftwidth=4
 "set softtabstop=4
 "set shiftround
 "set expandtab
+au Filetype python setl et ts=4 sw=4
 
 
 " Make search case insensitive
@@ -185,7 +189,7 @@ nmap T O<ESC>j
 let g:pymode_virtualenv = 1
 let g:pymode_breakpoint = 1
 let g:pymode_breakpoint_bind = '<leader>b'
-let g:pymode_breakpoint_cmd = 'ipdb'
+"let g:pymode_breakpoint_cmd = 'ipdb'
 let g:pymode_folding = 0
 
 " disable ropes autocomplete for jedi
