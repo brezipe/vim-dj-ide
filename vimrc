@@ -3,37 +3,61 @@ set nocompatible
 
 filetype off
 
-set rtp+=~/.vim/bundle/vundle/
-call vundle#rc()
+if has('vim_starting')
+set nocompatible               " Be iMproved
 
+" Required:
+set runtimepath+=~/.vim/bundle/neobundle.vim/
+endif
 
-Bundle 'airblade/vim-gitgutter'
-Bundle 'altercation/vim-colors-solarized'
-Bundle 'bling/vim-airline'
-Bundle 'Crapworks/python_fn.vim'
-Bundle 'davidhalter/jedi-vim'
-Bundle 'gmarik/vundle'
-Bundle 'honza/vim-snippets'
-Bundle 'kien/ctrlp.vim'
-Bundle 'klen/python-mode'
-Bundle 'Lokaltog/vim-easymotion'
+" Required:
+call neobundle#begin(expand('~/.vim/bundle/'))
+
+" Let NeoBundle manage NeoBundle
+NeoBundleFetch 'Shougo/neobundle.vim'
+NeoBundle 'airblade/vim-gitgutter'
+NeoBundle 'altercation/vim-colors-solarized'
+NeoBundle 'bling/vim-airline'
+NeoBundle 'Crapworks/python_fn.vim'
+NeoBundle 'davidhalter/jedi-vim'
+NeoBundle 'groenewege/vim-less'
+NeoBundle 'honza/vim-snippets'
+NeoBundle 'kchmck/vim-coffee-script'
+NeoBundle 'kien/ctrlp.vim'
+NeoBundle 'klen/python-mode'
+NeoBundle 'Lokaltog/vim-easymotion'
 " require: sudo apt-get install xdotool
-Bundle 'lordm/vim-browser-reload-linux'  
+NeoBundle 'lordm/vim-browser-reload-linux'  
 " require: sudo apt-get install exuberant-ctags
-Bundle 'majutsushi/tagbar'
-Bundle "mattn/emmet-vim"
+NeoBundle 'majutsushi/tagbar'
+NeoBundle "mattn/emmet-vim"
 " require: sudo apt-get install ack-grep
-Bundle 'mileszs/ack.vim'
-Bundle 'scrooloose/nerdcommenter'
-Bundle 'scrooloose/nerdtree'
-Bundle 'scrooloose/syntastic'
-Bundle 'SirVer/ultisnips'
-Bundle 'sjl/gundo.vim'
-Bundle 'tpope/vim-fugitive'
-Bundle 'tpope/vim-repeat'
-Bundle 'tpope/vim-surround'
+NeoBundle 'mileszs/ack.vim'
+NeoBundle 'scrooloose/nerdcommenter'
+NeoBundle 'scrooloose/nerdtree'
+NeoBundle 'scrooloose/syntastic'
+NeoBundle 'SirVer/ultisnips'
+NeoBundle 'sjl/gundo.vim'
+NeoBundle 'tpope/vim-fugitive'
+NeoBundle 'tpope/vim-repeat'
+NeoBundle 'tpope/vim-surround'
 
+"Nekdy by bylo dobre zkusit: unite.vim
+"NeoBundleLazy 'lambdalisue/vim-pyenv', {
+	"\ 'depends': ['davidhalter/jedi-vim'],
+	"\ 'autoload': {
+	"\   'filetypes': ['python', 'python3'],
+	"\ }}
+
+call neobundle#end()
+
+" If there are uninstalled bundles found on startup,
+" this will conveniently prompt you to install them.
+NeoBundleCheck
+
+" Required:
 filetype plugin indent on
+
 syntax on
 
 " theme
@@ -201,6 +225,7 @@ let g:pymode_lint_write = 0
 let g:pymode_lint = 0
 
 " vim-jedi
+"let g:jedi#auto_initialization = 0
 let g:jedi#popup_select_first = 0
 let g:jedi#use_tabs_not_buffers = 0
 let g:jedi#show_call_signatures = 0  " buggy with history
